@@ -5,11 +5,11 @@ from pip._vendor.colorama import Fore, Style, init
 init()
 # Global Variables
 source_dir = os.getcwd()
-mkdir_ads = 'C:\\Program Files (x86)\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\'
-mkdir_iclock = 'C:\\Program Files (x86)\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\iclock\\'
-mkdir_ess = 'C:\\Program Files (x86)\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\essInfoTouch\\'
+mkdir_ads = 'C:\\<Link to ADS Folder>'
+mkdir_iclock = 'C:\\<Link to ADS Folder Subfolder>'
+mkdir_ess = 'C:\\<Link to ADS Folder Subfolder>'
 ads_source_dir = source_dir + "\AffinityDS"
-ads_target_dir = 'C:\\Program Files (x86)\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\'
+ads_target_dir = 'C:\\<Link to ADS Folder>'
 
 
 # Coloured Text Function
@@ -62,16 +62,16 @@ colourText("\n \t AffinityDS was successfully copied to the (x86) TimeTrak Conne
 
 # Open & Close AffinityDS.exe
 def start_stop_ads():
-    os.startfile('C:\\Program Files (x86)\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\TTC_AffinityDS.exe')
+    os.startfile('C:\\<Link to ADS Application>')
     time.sleep(2)
     colourText("\n \t Creating the AffinityDS folder + XML file in ProgramData.\n", "GREEN")
-    os.chdir('C:\\ProgramData\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\')
+    os.chdir('C:\\<Link to ADS ProgramData Folder>')
     colourText("\nClosing the AffinityDS Program.", "RED")
     # Checks if the XML file has been created before closing ADS if True ADS Closes if False it re-loops
     for _ in range(0, 5):
         count = 0
-        if os.path.isfile('TTC_AffinityDS.xml'):
-            os.system("TASKKILL /F /IM TTC_AffinityDS.exe")
+        if os.path.isfile('<Open ADS XML File'):
+            os.system("TASKKILL /F /IM <ADS Program>")
             colourText('The AffinityDS Process has been successfully killed.', 'RED')
             break
         else:
@@ -82,7 +82,7 @@ start_stop_ads()
 
 # Get Server IP and Hostname for user and display it.
 def ipInformation():
-    os.chdir('C:\\ProgramData\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\')
+    os.chdir('C:\\<Link to ADS ProgramData Folder>')
     try:
         host_name = socket.gethostname()
         host_ip = socket.gethostbyname(host_name)
@@ -101,26 +101,26 @@ def ipInformation():
     if action == '1':
         use_host_ip = host_ip
         # Opening / Parsing the XML File
-        xml_file = md.parse('TTC_AffinityDS.xml')
+        xml_file = md.parse('<ADS XML File>')
 
         # modifying the loop back value
         xml_file.getElementsByTagName('ListenerAddress')[0].childNodes[0].nodeValue = use_host_ip + ':3427'
 
         # writing and saving changes to the xml file
-        with open('TTC_AffinityDS.xml', 'w') as xml:
+        with open('<ADS XML File>', 'w') as xml:
             xml.write(xml_file.toxml())
             xml.close()
 
     elif action == '2':
         own_host_ip = input('Enter The IP Address: ')
         # Opening / Parsing the XML File
-        xml_file = md.parse('TTC_AffinityDS.xml')
+        xml_file = md.parse('<ADS XML File>')
 
         # modifying the loop back value
         xml_file.getElementsByTagName('ListenerAddress')[0].childNodes[0].nodeValue = own_host_ip + ':3427'
 
         # writing and saving changes to the xml file
-        with open('TTC_AffinityDS.xml', 'w') as xml:
+        with open('<ADS XML File>', 'w') as xml:
             xml.write(xml_file.toxml())
             xml.close()
     else:
@@ -131,11 +131,11 @@ colourText('Modifying the XML File\n', 'RED')
 
 # Create the AffinityDS Service in Windows Services
 colourText("\n \t ....Creating the AffinityDS Windows Service....", "GREEN")
-os.system('cmd /c "sc create TTC_AffinityDS binPath= "C:\Program Files (x86)\TimeTrak Systems\TimeTrakCONNECT\AffinityDS\TTC_AffinityDSsvc.exe" DisplayName="TimeTrak CONNECT AffinityDS" start=auto"')
+os.system('cmd /c "sc create <SERVICENAME> binPath= "C:\<SERVICENAMEEXEPATH>" DisplayName="<DISPLAYEDNAME>" start=auto"')
 time.sleep(1)
 # Launch AffinityDS Application so Support can see if clocks are communicating
 colourText("\n \t ....Launching the AffinityDS Application....", "GREEN")
-os.startfile('C:\\Program Files (x86)\\TimeTrak Systems\\TimeTrakCONNECT\\AffinityDS\\TTC_AffinityDS.exe')
+os.startfile('C:\\<Link to ADS Application>')
 colourText("\n \t ....Good Luck Connecting The Clocks!....", "GREEN")
 # END
 colourText("\n \t \t TimeTrak AffinityDS has been setup. \n", "RED")
